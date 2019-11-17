@@ -17,10 +17,29 @@ class ViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-
+    
+    let blurView: UIVisualEffectView = {
+        let view = UIVisualEffectView()
+        view.layer.cornerRadius = 20
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupImageView()
+        let blurEffect = UIBlurEffect(style: .light)
+        view.addSubview(blurView)
+        blurView.effect = blurEffect
+        blurView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+        blurView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
+        blurView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        blurView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+    }
+    
+    fileprivate func setupImageView() {
         view.addSubview(imageView)
         imageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true

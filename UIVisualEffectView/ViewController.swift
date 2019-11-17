@@ -25,7 +25,17 @@ class ViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
- 
+    
+    let label: UILabel = {
+        let label = UILabel()
+        label.text = "Swift"
+        label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 30)
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,10 +43,18 @@ class ViewController: UIViewController {
         let blurEffect = UIBlurEffect(style: .light)
         view.addSubview(blurView)
         blurView.effect = blurEffect
+        setupBlurView()
+        
+        blurView.contentView.addSubview(label)
+        label.centerXAnchor.constraint(equalTo: blurView.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: blurView.centerYAnchor).isActive = true
+    }
+    
+    fileprivate func setupBlurView() {
         blurView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
         blurView.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
-        blurView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        blurView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        blurView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        blurView.widthAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
     fileprivate func setupImageView() {

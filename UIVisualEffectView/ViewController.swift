@@ -26,10 +26,18 @@ class ViewController: UIViewController {
         return view
     }()
     
+    let vibrancyView: UIVisualEffectView = {
+        let view = UIVisualEffectView()
+        view.layer.cornerRadius = 20
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     let label: UILabel = {
         let label = UILabel()
         label.text = "Swift"
-        label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        label.textColor = .systemBackground
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 30)
@@ -40,14 +48,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupImageView()
-        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffect = UIBlurEffect(style: .systemMaterial)
         view.addSubview(blurView)
         blurView.effect = blurEffect
         setupBlurView()
         
-        blurView.contentView.addSubview(label)
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect, style: .secondaryLabel)
+        vibrancyView.effect = vibrancyEffect
+        blurView.contentView.addSubview(vibrancyView)
+        setupVibrancyView()
+        
+        vibrancyView.contentView.addSubview(label)
+        setupLabel()
+    }
+    
+    fileprivate func setupLabel() {
+        //        blurView.contentView.addSubview(label)
         label.centerXAnchor.constraint(equalTo: blurView.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: blurView.centerYAnchor).isActive = true
+    }
+    
+    fileprivate func setupVibrancyView() {
+        vibrancyView.centerXAnchor.constraint(equalTo: blurView.centerXAnchor).isActive = true
+        vibrancyView.centerYAnchor.constraint(equalTo: blurView.centerYAnchor).isActive = true
+        vibrancyView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        vibrancyView.widthAnchor.constraint(equalToConstant: 300).isActive = true
     }
     
     fileprivate func setupBlurView() {
